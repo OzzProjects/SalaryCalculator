@@ -40,6 +40,22 @@ function Main(){
 
     }
 
+    const onFinance = (e)=>{
+        setToggleOptions((prevState)=>({
+            ...prevState,
+            IsFinance: true,
+            IsPension: false
+          }));
+    }
+
+    const onPension = (e)=>{
+        setToggleOptions((prevState)=>({
+            ...prevState,
+            IsFinance: false,
+            IsPension: true
+          }));
+    }
+
     const [salaryAttr, setSalaryAttr]=useState({
         grossSalary:0,
         taxedSalary:0,
@@ -52,6 +68,11 @@ function Main(){
         repayPlanOne:false,
         repayPlanTwo:false,
         repayPlanFour:false
+    });
+
+    const [toggleOptions, setToggleOptions]=useState({
+        IsFinance:true,
+        IsPension:false
     });
 
     const handleSubmit=(e)=>{
@@ -169,9 +190,15 @@ function Main(){
          <table className="table-itself">
          <thead className="table-headers">
              <tr>
-             <th className="table-header"> Student Finance </th>
+             <th className="table-header"> 
+                <input className="button-finance" type="button" onClick={onFinance} value="Student Finance"/>
+             </th>
+             <th className="table-header">
+                <input className="button-pension" type="button" onClick={onPension} value="Pension"/>
+            </th>
              </tr>
            </thead>
+           {toggleOptions.IsFinance?
            <tbody className='table-body'>
              <tr className='table-row'>
              <th className='row-title'>Repayment Plan 1</th>
@@ -192,6 +219,21 @@ function Main(){
              </td>
              </tr>
             </tbody>
+            :
+            <></>
+            }
+
+            {toggleOptions.IsPension?
+           <tbody className='table-body'>
+             <tr className='table-row'>
+             <th className='row-title'> I contribute ...</th>
+             <td className='cell-result'>   
+             </td>
+             </tr>
+            </tbody>
+            :
+            <></>
+            }
             </table>
         </div>
        </form>
