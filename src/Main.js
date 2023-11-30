@@ -56,6 +56,11 @@ function Main(){
           }));
     }
 
+    const onBright = (e)=>{
+        setIsBright(!IsBright);
+        console.log("Bright:"+IsBright)
+    }
+
     const [salaryAttr, setSalaryAttr]=useState({
         grossSalary:0,
         taxedSalary:0,
@@ -74,6 +79,8 @@ function Main(){
         IsFinance:true,
         IsPension:false
     });
+
+    const [IsBright,setIsBright]=useState(false);
 
     const handleSubmit=(e)=>{
         console.log("Form submitted");
@@ -179,6 +186,9 @@ function Main(){
 
     return(
      <div className="main-wrapper">
+        <div> 
+            <input className="button-finance" type="button" onClick={onBright} value="Bright"/> 
+         </div>
       <div className="form-wrapper">
        <form onSubmit={handleSubmit}>
         <h4 className="main-header">Salary Calculator </h4>
