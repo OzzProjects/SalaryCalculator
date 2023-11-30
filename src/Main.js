@@ -1,18 +1,57 @@
 import React,{useState} from 'react';
 import  './Main.css';
-import { Box,Table,TableHead,TableCell,TableBody,Button,TextField, TableRow } from '@mui/material';
-import styled from 'styled-components';
 
 function Main(){
 
     const [salary,setSalary]= useState("");
     const [IsSubmit,setIsSubmit]=useState(false);
 
+    const onChange = (e)=>{
+        setSalary(e.currentTarget.value);
+    }
+
+    const onChecked = (e)=>{
+        console.log(e);
+        if(e.currentTarget.className === "planOne"){
+            console.log("Clicked Plan One");
+            console.log(repayPlanAttr);
+            setRepayPlanAttr((prevState)=>({
+                ...prevState,
+               repayPlanOne: !repayPlanAttr.repayPlanOne
+            }));
+            console.log(repayPlanAttr);
+        }
+        else if(e.currentTarget.className === "planTwo"){
+            console.log("Clicked Plan Two");
+            console.log(repayPlanAttr);
+            setRepayPlanAttr((prevState)=>({
+                ...prevState,
+                repayPlanTwo: !repayPlanAttr.repayPlanTwo
+              }));
+        }
+        else if(e.currentTarget.className === "planFour"){
+            console.log("Clicked Plan Four");
+            console.log(repayPlanAttr);
+            setRepayPlanAttr((prevState)=>({
+                ...prevState,
+                repayPlanFour: !repayPlanAttr.repayPlanFour
+              }));
+        }
+
+    }
+
     const [salaryAttr, setSalaryAttr]=useState({
         grossSalary:0,
         taxedSalary:0,
         insurancedSalary:0,
+        sfinanceSalary:0,
         netSalary:0
+    });
+
+    const [repayPlanAttr, setRepayPlanAttr]=useState({
+        repayPlanOne:false,
+        repayPlanTwo:false,
+        repayPlanFour:false
     });
 
     const handleSubmit=(e)=>{
@@ -20,27 +59,28 @@ function Main(){
 
         let taxAmount=calculateIncomeTax();
         let NIAmount=calculateNationalInsurance();
-        let netAmount=salary-taxAmount-NIAmount;
+        let sfAmount=calculateRepaymentPlan();
+        console.log(sfAmount);
+        let netAmount=salary-taxAmount-NIAmount-sfAmount;
         setSalaryAttr((prevState)=>({
             ...prevState,
             grossSalary:salary,
             taxedSalary:taxAmount,
             insurancedSalary:NIAmount,
+            sfinanceSalary:sfAmount,
             netSalary:netAmount
-            
+
         }));
 
         setIsSubmit(true);
         e.preventDefault();
-     
+
     }
-
-
 
     const calculateIncomeTax=()=>{
         let defaultTaxFreePersonalAllowance=12570;
-        let twentyPercentLimit=37700; 
-        let fortyPercentLimit=150000; 
+        let twentyPercentLimit=37700;
+        let fortyPercentLimit=150000;
         let taxAmount=0;
         if(salary<defaultTaxFreePersonalAllowance)
         {
@@ -49,16 +89,16 @@ function Main(){
 
             if(salary<=twentyPercentLimit)
             {
-           
+
                 taxAmount=((salary-defaultTaxFreePersonalAllowance)*20/100);
-           
+
             }else if(salary>twentyPercentLimit && salary<=fortyPercentLimit){
 
                 if(salary>100000){
 
                  let reducedPersonalAllowance=(salary-100000/2 >defaultTaxFreePersonalAllowance)? 0: defaultTaxFreePersonalAllowance-salary-100000/2;
                  taxAmount=((salary-reducedPersonalAllowance)*40/100);
-                
+
                 }else{
                     taxAmount=((salary-defaultTaxFreePersonalAllowance)*40/100);
                 }
@@ -86,90 +126,128 @@ function Main(){
         }
         return Math.round((insurancedSalary + Number.EPSILON) * 100) / 100;
     }
-  
-    return(
-     <Box className="main-wrapper"  sx={{ textAlign: 'center',height: 'auto',width: 'auto'}}>
 
-      <Box className="form-wrapper" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}> 
+    const calculateRepaymentPlan=()=>{
+        let bankOfEnglandInterest=1;
+        let rpi =1;
+        let salaryAmount=salary;
+        console.log(repayPlanAttr);
+        if(repayPlanAttr.repayPlanOne==true)
+        {
+          bankOfEnglandInterest = bankOfEnglandInterest+(bankOfEnglandInterest/100);
+          let repayInterest = (rpi>bankOfEnglandInterest)? rpi :bankOfEnglandInterest;
+          let repayAmount = salary *9 /100;
+          salaryAmount =  (repayAmount+repayInterest);
+        }
+        else if(repayPlanAttr.repayPlanTwo==true)
+        {
+          let repayInterest = rpi+(rpi*3/100);
+          let repayAmount = salary *9 /100;
+          salaryAmount = (repayAmount+repayInterest);
+        }
+        else if(repayPlanAttr.repayPlanFour==true)
+        {
+
+        }
+        else{
+            salaryAmount=0;
+        }
+        return salaryAmount;
+    }
+    
+
+    return(
+     <div className="main-wrapper">
+      <div className="form-wrapper">
        <form onSubmit={handleSubmit}>
         <h4 className="main-header">Salary Calculator </h4>
-         <InputComponent salary={salary} passSetSalary={setSalary}/>
+        <div className="input-wrapper">
+            <input className="textbox" type="textbox" value={salary} onChange={onChange}/>
+            <input className="button-submit" type="submit" value="submit"/>
+        </div>
+        <div className="input-options">
+         <table className="table-itself">
+         <thead className="table-headers">
+             <tr>
+             <th className="table-header"> Student Finance </th>
+             </tr>
+           </thead>
+           <tbody className='table-body'>
+             <tr className='table-row'>
+             <th className='row-title'>Repayment Plan 1</th>
+             <td className='cell-result'>   
+              <input type="checkbox" className="planOne"   onChange={onChecked} value="" />
+             </td>
+             </tr>
+             <tr className='table-row'>
+             <th className='row-title'>Repayment Plan 2</th>
+             <td className='cell-result'>   
+              <input type="checkbox" className="planTwo"   onChange={onChecked} value="" />
+             </td>
+             </tr>
+             <tr className='table-row'>
+             <th className='row-title'>Repayment Plan 4</th>
+             <td className='cell-result'>   
+              <input type="checkbox" className="planFour" onChange={onChecked} value="" />
+             </td>
+             </tr>
+            </tbody>
+            </table>
+        </div>
        </form>
-      </Box>
+      </div>
 
 
       {IsSubmit ?
-      <Box className="table-wrapper" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>  
+      <div className="table-wrapper">
           <div className="table-wrapper-styling">
-             <Table className="table-itself">
-              <TableHead className="table-headers">
-                  <TableRow>
-                  <TableCell className="empty-header"></TableCell>
-                  <TableCell className="table-header">Yearly</TableCell>
-                  </TableRow>
-              </TableHead>
-              <TableBody className='table-body'>
-                  <TableRow className='table-row'><TableCell className='row-title'>Gross Salary</TableCell><TableCell className='cell-result'>{salary}</TableCell></TableRow>
-                  <TableRow className='table-row'><TableCell className='row-title'>Plus Tax </TableCell><TableCell className='cell-result'>{salaryAttr.taxedSalary}</TableCell></TableRow>
-                  <TableRow className='table-row'><TableCell className='row-title'>Plus NI </TableCell><TableCell className='cell-result'>{salaryAttr.insurancedSalary}</TableCell></TableRow>
-                  <TableRow className='stable-row'><TableCell className='row-title'>Net Salary</TableCell><TableCell className='cell-result'>{salaryAttr.netSalary}</TableCell></TableRow>
-              </TableBody>
-             </Table>
+             <table className="table-itself">
+              <thead className="table-headers">
+                  <tr>
+                  <th className="empty-header"></th>
+                  <th className="table-header">Yearly</th>
+                  <th className="table-header">Monthly</th> 
+                  <th className="table-header">Weekly</th>
+                  </tr>
+              </thead>
+              <tbody className='table-body'>
+                  <tr className='table-row'><th className='row-title'>Gross Salary</th>
+                  <td className='cell-result'>{salary}</td>
+                  <td className='cell-result'>{salary/12}</td>
+                  <td className='cell-result'>{salary/52}</td>
+                  </tr>
+                  <tr className='table-row'><th className='row-title'>Plus Tax </th>
+                  <td className='cell-result'>{salaryAttr.taxedSalary}</td>
+                  <td className='cell-result'>{salaryAttr.taxedSalary/12}</td>
+                  <td className='cell-result'>{salaryAttr.taxedSalary/52}</td>
+                  </tr>
+                  <tr className='table-row'><th className='row-title'>Plus NI </th>
+                  <td className='cell-result'>{salaryAttr.insurancedSalary}</td>
+                  <td className='cell-result'>{salaryAttr.insurancedSalary/12}</td>
+                  <td className='cell-result'>{salaryAttr.insurancedSalary/52}</td>
+
+                  </tr>
+                  <tr className='table-row'><th className='row-title'>Plus SFinance </th>
+                  <td className='cell-result'>{salaryAttr.sfinanceSalary}</td>
+                  <td className='cell-result'>{salaryAttr.sfinanceSalary/12}</td>
+                  <td className='cell-result'>{salaryAttr.sfinanceSalary/52}</td>
+                  </tr>
+                  <tr className='table-row'><th className='row-title'>Net Salary</th>
+                  <td className='cell-result'>{salaryAttr.netSalary}</td>
+                  <td className='cell-result'>{salaryAttr.netSalary/12}</td>
+                  <td className='cell-result'>{salaryAttr.netSalary/52}</td>
+                  </tr>
+              </tbody>
+             </table>
              </div>
-      </Box>
-      : 
-      <></> 
+      </div>
+      :
+      <></>
       }
 
-     </Box>
+
+     </div>
     );
 
 }
-
-
-function InputComponent({salary,passSetSalary}){
-        
-    const onChange=(e)=>{
-        passSetSalary(e.currentTarget.value);
-    }
-
-  
-    return (<InputWrapper>
-                <TextField id="outlined-basic" sx={{ m: 2, width: {xs: '50vw', sm: '45vw',md: '35vw', lg: '30vw', xl: '40vw' }}}  variant="outlined" value={salary} onChange={onChange}/>
-                <Box className="button-wrapper" sx={{alignItems:'center'}}  >
-                <Button className="button-submit" sx={{ m:0 ,width:{xs: '50vw', sm: '30vw', md:'20vw',lg: '10vw', xl: '20vw' }}}  type="submit" variant="contained" >Submit</Button>
-                </Box>
-            </InputWrapper>);
-}
-
-const InputWrapper = styled.div`
-        
-@media (min-width:0px) and (max-width:599px){
-    display:flex;
-    align-items:center;
-    flex-direction: column;
-  }
-@media (min-width:600px) and (max-width:899px){
-    display:flex;
-    align-items:center;
-    flex-direction: column;
-}
-@media (min-width:900px) and (max-width:1199px){
-    display:flex;
-    align-items:center;
-    flex-direction: row;
-}
-@media (min-width:1200px) and (max-width:1535px){
-    display:flex;
-    align-items:center;
-    flex-direction: row;
-}
-@media (min-width:1536){
-    display:flex;
-    align-items:center;
-    flex-direction: column;
-}`;
-
-
-
 export default Main;

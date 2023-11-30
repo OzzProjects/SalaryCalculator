@@ -1,4 +1,19 @@
+  .main-wrapper {
+      text-align: center;
+      height: auto;
+      width: auto;
+  }
 
+  .form-wrapper{
+     display: flex;
+     justify-content: center;
+     align-items: center;    
+  }
+
+  .input-wrapper{
+
+  }
+  
   .main-header {
     display: flex;
     flex-direction: column;
@@ -7,7 +22,18 @@
     font-size: calc(10px + 2vmin);
     color: black;
   }
+  
+  .main-link {
+    color: #61dafb;
+  }
+  
+  .textbox{
+    margin: 16px 8px;
+    padding: 4px;
+    width:40%;
+  
 
+  }
   .button-submit{
     margin: 0px 0px 0px 16px;
     padding: 6px 16px;
@@ -18,7 +44,12 @@
     box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px, rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
   }
    
+  .table-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;  
 
+  }
   .table-wrapper-styling{
     margin:10px;
     background-color: rgb(255, 255, 255);
@@ -29,3 +60,76 @@
     width: auto;
     overflow-x: auto;
   }
+  .table-itself{
+   
+  }
+
+  .table-headers{
+    display: table-header-group;
+  }
+
+  .table-body{
+    display: table-row-group;
+  }
+  .table-header{
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.43;
+    letter-spacing: 0.01071em;
+    display: table-cell;
+    vertical-align: inherit;
+    border-bottom: 1px solid rgb(224, 224, 224);
+    text-align: left;
+    padding: 16px;
+    color: rgba(0, 0, 0, 0.87);
+  }
+  .empty-header{
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.43;
+    letter-spacing: 0.01071em;
+    display: table-cell;
+    vertical-align: inherit;
+    border-bottom: 1px solid rgb(224, 224, 224);
+    text-align: left;
+    padding: 16px;
+    color: rgba(0, 0, 0, 0.87);
+  }
+  .table-row{
+    color: inherit;
+    display: table-row;
+    vertical-align: middle;
+    outline: 0px;
+
+  }
+  .row-title{
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.43;
+    letter-spacing: 0.01071em;
+    text-align: left;
+    display: table-cell;
+    vertical-align: inherit;
+    border-bottom: 1px solid rgb(224, 224, 224);
+    padding: 16px;
+    color: rgba(0, 0, 0, 0.87);
+    flex-direction: row-reverse;
+  }
+  .cell-result{
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.43;
+    letter-spacing: 0.01071em;
+    display: table-cell;
+    vertical-align: inherit;
+    border-bottom: 1px solid rgb(224, 224, 224);
+    padding: 16px;
+    color: rgba(0, 0, 0, 0.87);
+    flex-direction: row-reverse;
+  }
+
+  
