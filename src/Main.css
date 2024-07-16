@@ -1,17 +1,97 @@
+    /*Parent-Divs*/  
+    
+  html,body{
+    height: auto;
+    width: auto;
+  }
+
+  #root{
+   height: auto;
+  }
+
   .main-wrapper {
+      display: flex;
+      flex: 100% 1 1;
+      flex-direction: column;
       text-align: center;
       height: auto;
       width: auto;
   }
 
+    /**Heading**/
+
+  .parent-title-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    background-color: peru;
+  }
+
+  .title-wrapper{
+    display: flex;
+    flex: 80% 1 1;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    padding-left:10%;
+  }
+
+  .title-button-wrapper{
+    display: flex;
+    flex: 20% 1 1;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .button-finance, .button-pension{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(6px + 2vmin);
+    color: black;
+    margin: 0px 0px 0px 16px;
+    padding: 6px 16px;
+    border:2px;
+    border-radius: 4px;
+    background-color: transparent;
+    box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px, rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
+
+  }
+
+
+    /**Main Input**/
+
   .form-wrapper{
      display: flex;
      justify-content: center;
-     align-items: center;    
+     align-items: center;  
+     padding-top: 5px;  
+
+  }
+
+  form{
+   display: flex;
+   height: max-content;
+   width: 100%;
+   flex-direction: column;
   }
 
   .input-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 8vh;
+    padding-bottom: 10px;
+    flex-direction: row;
+  }
 
+  .input-options{
+    display: flex;
+    justify-content: center;
+    
   }
   
   .main-header {
@@ -22,34 +102,42 @@
     font-size: calc(10px + 2vmin);
     color: black;
   }
-  
+
   .main-link {
     color: #61dafb;
   }
   
   .textbox{
+    display: flex;
+    justify-content: center;
     margin: 16px 8px;
     padding: 4px;
     width:40%;
-  
+    font-size: 4vw;
 
   }
+
   .button-submit{
     margin: 0px 0px 0px 16px;
     padding: 6px 16px;
     border:2px;
     border-radius: 4px;
-    color:black;
     background-color: transparent;
     box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px, rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
+    height: 4vh;
   }
    
+  /**Main Output**/
+  .empty-table{
+    display: flex;
+  }
+
   .table-wrapper{
     display: flex;
     justify-content: center;
     align-items: center;  
-
   }
+
   .table-wrapper-styling{
     margin:10px;
     background-color: rgb(255, 255, 255);
@@ -60,10 +148,7 @@
     width: auto;
     overflow-x: auto;
   }
-  .table-itself{
-   
-  }
-
+  
   .table-headers{
     display: table-header-group;
   }
@@ -71,6 +156,7 @@
   .table-body{
     display: table-row-group;
   }
+
   .table-header{
     font-family: Roboto, Helvetica, Arial, sans-serif;
     font-weight: 400;
@@ -84,6 +170,7 @@
     padding: 16px;
     color: rgba(0, 0, 0, 0.87);
   }
+
   .empty-header{
     font-family: Roboto, Helvetica, Arial, sans-serif;
     font-weight: 400;
@@ -97,6 +184,7 @@
     padding: 16px;
     color: rgba(0, 0, 0, 0.87);
   }
+
   .table-row{
     color: inherit;
     display: table-row;
@@ -104,6 +192,7 @@
     outline: 0px;
 
   }
+
   .row-title{
     font-family: Roboto, Helvetica, Arial, sans-serif;
     font-weight: 400;
@@ -113,11 +202,13 @@
     text-align: left;
     display: table-cell;
     vertical-align: inherit;
+    border-right: 1px solid rgb(224, 224, 224);
     border-bottom: 1px solid rgb(224, 224, 224);
     padding: 16px;
-    color: rgba(0, 0, 0, 0.87);
+    /*color: rgba(0, 0, 0, 0.87);*/
     flex-direction: row-reverse;
   }
+  
   .cell-result{
     font-family: Roboto, Helvetica, Arial, sans-serif;
     font-weight: 400;
@@ -132,4 +223,6 @@
     flex-direction: row-reverse;
   }
 
-  
+  th, td{
+    border:2px;
+  }

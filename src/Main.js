@@ -46,19 +46,81 @@ function Main(){
             IsFinance: true,
             IsPension: false
           }));
+          console.log("STUDENT FIN");
     }
 
     const onPension = (e)=>{
         setToggleOptions((prevState)=>({
             ...prevState,
             IsFinance: false,
-            IsPension: true
-          }));
+            IsPension: true,
+          }))
+          console.log("PENSION");
     }
 
     const onBright = (e)=>{
+        const headingWrapper=document.getElementsByClassName("parent-title-wrapper");
         setIsBright(!IsBright);
-        console.log("Bright:"+IsBright)
+
+        if(IsBright!=true)
+        {
+            headingWrapper[0].style.backgroundColor="peru";
+            document.body.style.backgroundColor="white";
+            setBackgroundStyle("table-wrapper-styling",IsBright);
+            document.body.style.color="black";
+            setMultipleClasses();
+        }
+        else
+        {
+            headingWrapper[0].style.backgroundColor="grey";
+            document.body.style.backgroundColor="black";
+            setBackgroundStyle("table-wrapper-styling",IsBright);
+            document.body.style.color="white";
+            setMultipleClasses()
+        }
+
+    }
+
+    function setMultipleClasses() {
+        setStyle("row-title", IsBright);
+        setStyle("cell-result", IsBright);
+        setStyle("table-header", IsBright);
+        setStyle("button-submit", IsBright);
+        setStyle("button-finance", IsBright);
+        setStyle("button-pension", IsBright);
+    }
+
+    function setBackgroundStyle(className, isBright){
+        console.log(isBright);
+        var items = document.getElementsByClassName(className);
+        for (var i=0; i < items.length; i++) {
+          if(isBright != true)
+          {  
+            items[i].style.backgroundColor = "white";
+
+          }
+          else
+          {
+            items[i].style.backgroundColor = "black";
+          }
+        }
+    }
+
+    function setStyle(className, isBright) {
+        console.log(isBright);
+        var items = document.getElementsByClassName(className);
+        for (var i=0; i < items.length; i++) {
+          if(isBright != true)
+          {  
+            console.log("False: "+isBright);
+            items[i].style.color = "black";
+          }
+          else
+          {
+            console.log("True: "+isBright);
+            items[i].style.color = "white";
+          }
+        }
     }
 
     const [salaryAttr, setSalaryAttr]=useState({
@@ -80,7 +142,7 @@ function Main(){
         IsPension:false
     });
 
-    const [IsBright,setIsBright]=useState(false);
+    const [IsBright,setIsBright]=useState(true);
 
     const handleSubmit=(e)=>{
         console.log("Form submitted");
@@ -182,73 +244,75 @@ function Main(){
         }
         return salaryAmount;
     }
-    
 
     return(
      <div className="main-wrapper">
-        <div> 
-            <input className="button-finance" type="button" onClick={onBright} value="Bright"/> 
-         </div>
-      <div className="form-wrapper">
-       <form onSubmit={handleSubmit}>
-        <h4 className="main-header">Salary Calculator </h4>
-        <div className="input-wrapper">
-            <input className="textbox" type="textbox" value={salary} onChange={onChange}/>
-            <input className="button-submit" type="submit" value="submit"/>
+        <div className='parent-title-wrapper'> 
+            <div className='title-wrapper'>
+            <h4 className="main-header">Salary Calculator </h4>
+            </div>
+            <div className='title-button-wrapper'>
+            <input id="button-brightness" type="button" onClick={onBright} value="Bright"/> 
+            </div>    
         </div>
-        <div className="input-options">
-         <table className="table-itself">
-         <thead className="table-headers">
-             <tr>
-             <th className="table-header"> 
-                <input className="button-finance" type="button" onClick={onFinance} value="Student Finance"/>
-             </th>
-             <th className="table-header">
-                <input className="button-pension" type="button" onClick={onPension} value="Pension"/>
-            </th>
-             </tr>
-           </thead>
-           {toggleOptions.IsFinance?
-           <tbody className='table-body'>
-             <tr className='table-row'>
-             <th className='row-title'>Repayment Plan 1</th>
-             <td className='cell-result'>   
-              <input type="checkbox" className="planOne"   onChange={onChecked} value="" />
-             </td>
-             </tr>
-             <tr className='table-row'>
-             <th className='row-title'>Repayment Plan 2</th>
-             <td className='cell-result'>   
-              <input type="checkbox" className="planTwo"   onChange={onChecked} value="" />
-             </td>
-             </tr>
-             <tr className='table-row'>
-             <th className='row-title'>Repayment Plan 4</th>
-             <td className='cell-result'>   
-              <input type="checkbox" className="planFour" onChange={onChecked} value="" />
-             </td>
-             </tr>
-            </tbody>
-            :
-            <></>
-            }
+        <div className="form-wrapper">
+        <form onSubmit={handleSubmit}>
+            <div className="input-wrapper">
+                <input className="textbox" type="textbox" value={salary} onChange={onChange}/>
+                <input className="button-submit" type="submit" value="submit"/>
+            </div>
+            <div className="input-options">
+            <table className="table-itself">
+            <thead className="table-headers">
+                <tr>
+                <th className="table-header"> 
+                    <input className="button-finance" type="button" onClick={onFinance} value="Student Finance"/>
+                </th>
+                <th className="table-header">
+                    <input className="button-pension" type="button" onClick={onPension} value="Pension"/>
+                </th>
+                </tr>
+            </thead>
+            {toggleOptions.IsFinance?
+            <tbody className='table-body'>
+                <tr className='table-row'>
+                <th className="row-title">Repayment Plan 1</th>
+                <td className='cell-result'>   
+                <input type="checkbox" className="planOne"   onChange={onChecked} value="" />
+                </td>
+                </tr>
+                <tr className='table-row'>
+                <th className='row-title'>Repayment Plan 2</th>
+                <td className='cell-result'>   
+                <input type="checkbox" className="planTwo"   onChange={onChecked} value="" />
+                </td>
+                </tr>
+                <tr className='table-row'>
+                <th className='row-title'>Repayment Plan 4</th>
+                <td className='cell-result'>   
+                <input type="checkbox" className="planFour" onChange={onChecked} value="" />
+                </td>
+                </tr>
+                </tbody>
+                :
+                <></>
+                }
 
-            {toggleOptions.IsPension?
-           <tbody className='table-body'>
-             <tr className='table-row'>
-             <th className='row-title'> I contribute ...</th>
-             <td className='cell-result'>   
-             </td>
-             </tr>
-            </tbody>
-            :
-            <></>
-            }
-            </table>
+                {toggleOptions.IsPension?
+            <tbody className='table-body'>
+                <tr className='table-row'>
+                <th className='row-title'> I contribute ...</th>
+                <td className='cell-result'>   
+                </td>
+                </tr>
+                </tbody>
+                :
+                <></>
+                }
+                </table>
+            </div>
+        </form>
         </div>
-       </form>
-      </div>
-
 
       {IsSubmit ?
       <div className="table-wrapper">
@@ -294,12 +358,11 @@ function Main(){
              </div>
       </div>
       :
-      <></>
+      <div className='empty-table'></div>
       }
 
 
      </div>
     );
-
 }
 export default Main;
