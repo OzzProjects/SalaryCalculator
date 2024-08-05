@@ -10,12 +10,12 @@
   }
 
   .main-wrapper {
-      display: flex;
-      flex: 100% 1 1;
-      flex-direction: column;
-      text-align: center;
-      height: auto;
-      width: auto;
+    display: flex;
+    flex: 100% 1 1;
+    flex-direction: column;
+    text-align: center;
+    height: auto;
+    width: auto;
   }
 
     /**Heading**/
@@ -25,7 +25,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    background-color: peru;
+    background-color: #d99753;
   }
 
   .title-wrapper{
@@ -36,6 +36,27 @@
     flex-direction: row;
     padding-left:10%;
   }
+
+  #main-icon{
+    height: 10%;
+    width: 10%;
+    display: block;
+  }
+
+  .main-header{
+    text-decoration: underline;
+  }
+
+  #inner-title-wrapper{
+    display: flex;
+    flex: 80% 1 1;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    padding-left:10%;
+  }
+
+  /*#intro-header{}*/
 
   .title-button-wrapper{
     display: flex;
@@ -58,9 +79,7 @@
     border-radius: 4px;
     background-color: transparent;
     box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px, rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
-
   }
-
 
     /**Main Input**/
 
@@ -69,14 +88,13 @@
      justify-content: center;
      align-items: center;  
      padding-top: 5px;  
-
   }
 
   form{
-   display: flex;
-   height: max-content;
-   width: 100%;
-   flex-direction: column;
+    display: flex;
+    height: max-content;
+    width: 100%;
+    flex-direction: column;
   }
 
   .input-wrapper{
@@ -114,7 +132,6 @@
     padding: 4px;
     width:40%;
     font-size: 4vw;
-
   }
 
   .button-submit{

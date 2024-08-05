@@ -1,5 +1,7 @@
 import React,{useState} from 'react';
 import  './Main.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faToggleOn,faToggleOff } from '@fortawesome/free-solid-svg-icons'
 
 function Main(){
 
@@ -60,6 +62,8 @@ function Main(){
 
     const onBright = (e)=>{
         const headingWrapper=document.getElementsByClassName("parent-title-wrapper");
+        const toggleBrightness=document.getElementById("button-brightness");
+
         setIsBright(!IsBright);
 
         if(IsBright!=true)
@@ -71,7 +75,7 @@ function Main(){
             setMultipleClasses();
         }
         else
-        {
+        {   
             headingWrapper[0].style.backgroundColor="grey";
             document.body.style.backgroundColor="black";
             setBackgroundStyle("table-wrapper-styling",IsBright);
@@ -164,7 +168,6 @@ function Main(){
 
         setIsSubmit(true);
         e.preventDefault();
-
     }
 
     const calculateIncomeTax=()=>{
@@ -247,16 +250,23 @@ function Main(){
 
     return(
      <div className="main-wrapper">
-        <div className='parent-title-wrapper'> 
-            <div className='title-wrapper'>
-            <h4 className="main-header">Salary Calculator </h4>
+        <div className="parent-title-wrapper"> 
+            <div className="title-wrapper">
+                <div id="inner-title-wrapper">
+                <img id="main-icon" src="../images/gold_1280.png" alt="Image"></img>
+                    <h4 className="main-header">Salary Calculator </h4>
+                </div>    
             </div>
-            <div className='title-button-wrapper'>
-            <input id="button-brightness" type="button" onClick={onBright} value="Bright"/> 
+            <div className="title-button-wrapper">
+                <FontAwesomeIcon id="button-brightness" icon={IsBright ? faToggleOn : faToggleOff} onClick={onBright} value="Bright"/>
             </div>    
         </div>
         <div className="form-wrapper">
         <form onSubmit={handleSubmit}>
+            <div id="intro-wrapper">
+                <h1 className="intro-header">Salary Calculator </h1>
+                <p id="intro text">Calculate your net salary here</p>
+            </div>
             <div className="input-wrapper">
                 <input className="textbox" type="textbox" value={salary} onChange={onChange}/>
                 <input className="button-submit" type="submit" value="submit"/>
